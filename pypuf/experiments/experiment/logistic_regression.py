@@ -80,6 +80,6 @@ class ExperimentLogisticRegression(Experiment):
                 self.learner.iteration_count,
                 self.measured_time,
                 1.0 - tools.approx_dist(self.instance, self.model, min(10000, 2 ** self.n)),
-                ','.join(map(str, self.model.weight_array.flatten() / norm(self.model.weight_array.flatten())))
+                ','.join([ '%f' % x for x in self.model.weight_array.flatten() / norm(self.model.weight_array.flatten())])
             )
         )
