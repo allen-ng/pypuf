@@ -62,13 +62,19 @@ def run_input_trans_comparison(
 if __name__ == '__main__':
     run_input_trans_comparison(
         n=64,
-        k=2,
+        k=4,
         transformations=[
-            LTFArray.transform_concat(
-                transform_1=LTFArray.transform_shift,
-                transform_2=LTFArray.transform_id,
-                nn=48
+            LTFArray.transform_stack(
+                transform_1=LTFArray.transform_id,
+                kk=x,
+                transform_2=LTFArray.transform_random
             )
+            for x in [0, 1, 2, 3]
+            #LTFArray.transform_concat(
+            #    transform_1=LTFArray.transform_shift,
+            #    transform_2=LTFArray.transform_id,
+            #    nn=48
+            #)
             #LTFArray.transform_1_1_bent,
             #LTFArray.transform_1_n_bent,
             #LTFArray.transform_atf,
@@ -76,21 +82,23 @@ if __name__ == '__main__':
             #LTFArray.transform_lightweight_secure,
             #LTFArray.transform_mm,
             #LTFArray.transform_polynomial,
-            #LTFArray.transform_shift,
+            #LTFArray.transform_permutation_atf,
             #LTFArray.transform_shift_lightweight_secure,
             #LTFArray.transform_soelter_lightweight_secure,
+            #LTFArray.transform_permutation_atf,
         ],
         Ns=[
-            250,
-            1000,
-            2000,
+            #250,
+            #1000,
+            #2000,
             #12000,
             #12000
-            #30016,
-            #100000,
-            #250016,
+            30016,
+            100000,
+            250016,
             #1000000,
         ],
-        instance_sample_size=10,
-        initial_seed_model=0xdead,
+        instance_sample_size=100,
+        initial_seed_model=0xcaffe,
+        seed_instance=0x101,
     )
