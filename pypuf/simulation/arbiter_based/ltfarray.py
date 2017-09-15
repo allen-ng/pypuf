@@ -500,15 +500,22 @@ class LTFArray(Simulation):
 
     def eval(self, inputs):
         """
-        evaluates a given list of challenges regarding bias
+        evaluates a given list of challenges
         :param inputs: list of challenges
         :return: list of responses
         """
-        if self.bias:
-            inputs = tools.iter_append_last(inputs, 1)
         return sign(self.val(inputs))
 
     def val(self, inputs):
+        """
+        This function a calculates the output of the LTFArray based on weights. 
+        :param inputs: array of int shape(N,k,n)
+                       Array of challenges which should be evaluated by the simulation.
+        :return: array of int shape(N)
+                 Array of responses for the N different challenges.
+        """
+        if self.bias:
+            inputs = tools.iter_append_last(inputs, 1)
         return self.combiner(self.ltf_eval(self.transform(inputs, self.k)))
 
     def ltf_eval(self, inputs):
@@ -608,6 +615,8 @@ class SimulationMajorityLTFArray(LTFArray):
         :return: array of int shape(N)
                  Array of responses for the N different challenges.
         """
+        if self.bias:
+            inputs = tools.iter_append_last(inputs, 1)
         return self.combiner(self.majority_vote(self.transform(inputs, self.k)))
 
     def majority_vote(self, transformed_inputs):
